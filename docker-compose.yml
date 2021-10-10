@@ -1,0 +1,16 @@
+version: '3'
+services:
+  okr-db:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${MYSQL_HOST}
+    platform: linux/x86_64
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "33306:3306"
+    volumes:
+      - "./docker/data/mysql:/var/lib/mysql"
