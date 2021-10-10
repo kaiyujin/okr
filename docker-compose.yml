@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   okr-db:
     image: mysql:${MYSQL_VERSION}
