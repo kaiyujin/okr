@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         <head>
           <title>OKR</title>
         </head>
-        <h1>テスト</h1>
+        <h1 className={'p-2 underline'}>テスト</h1>
       </div>
   )
 }
