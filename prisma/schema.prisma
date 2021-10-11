@@ -10,8 +10,44 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Sample {
-  id                 Int       @id @default(autoincrement())
-  name               String    @map(name: "name")
-  @@map(name: "sample")
+model Period {
+  period_id  Int       @id @default(autoincrement()) @map(name: "periodId")
+  name       String    @db.VarChar(50)
+  posts      Object[]
+  @@map(name: "period")
+}
+
+model Object {
+  object_id  Int           @id @default(autoincrement()) @map(name: "objectId")
+  period     Period        @relation(fields: [periodId], references: [periodId])
+  period_id  Int           @map(name: "periodId")
+  title      String        @db.VarChar(200)
+  parent_key_result_id Int @map(name: "parentKeyResultId")
+  owner_type String        @map(name: "ownerType") @db.Char(4) // dept or user
+  owner_user_id Int?       @map(name: "ownerUserId")
+  owner_dept_id Int?       @map(name: "ownerDeptId")
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  keyResult  KeyResult[]
+  report     Report[]
+  @@map(name: "object")
+}
+
+model KeyResult {
+  key_result_id  Int       @id @default(autoincrement()) @map(name: "keyResultId")
+  object         Object    @relation(fields: [objectId], references: [objectId])
+  object_id      Int       @map(name: "objectId")
+  title          String    @db.VarChar(200)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  @@map(name: "key_result")
+}
+
+model Report {
+  daily_report_id  Int       @id @default(autoincrement()) @map(name: "dailyReportId")
+  object           Object    @relation(fields: [objectId], references: [objectId])
+  object_id        Int       @map(name: "objectId")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  @@map(name: "report")
 }
