@@ -17,7 +17,7 @@ model Period {
   @@map(name: "period")
 }
 
-model Object {
+model OkrObject {
   objectId    Int           @id @default(autoincrement()) @map(name: "object_id")
   period      Period        @relation(fields: [periodId], references: [periodId])
   periodId    Int           @map(name: "period_id")
